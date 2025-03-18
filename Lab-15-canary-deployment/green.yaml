@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-app
+  namespace: prd
+  labels:
+    app: sample-application
+    env: green
+    version: v2.0.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-application
+      env: green
+  template:
+    metadata:
+      labels:
+        app: sample-application
+        env: green
+        version: v2.0.0
+    spec:
+      containers:
+        - name: sample-app
+          image: hashicorp/http-echo
+          args:
+            - "-listen=:8080"
+            - '-text="This is v2.0.0"'
+          ports:
+            - containerPort: 8080
+

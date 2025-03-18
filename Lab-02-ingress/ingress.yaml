@@ -1,0 +1,161 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: qa
+  labels:
+    name: hello-world
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fe-hello-world
+  namespace: qa
+spec:
+  selector:
+    matchLabels:
+      app: fe-hello-world
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: fe-hello-world
+    spec:
+      containers:
+      - name: fe-hello-world
+        image: hashicorp/http-echo
+        args:
+        - "-listen=:8080"
+        - '-text="This is front end"'
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be-hello-world
+  namespace: qa
+spec:
+  selector:
+    matchLabels:
+      app: be-hello-world
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: be-hello-world
+    spec:
+      containers:
+        - name: be-hello-world
+          image: hashicorp/http-echo
+          args:
+            - "-listen=:8080"
+            - '-text="This is backend end"'
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  namespace: qa
+spec:
+  selector:
+    matchLabels:
+      app: hello-world
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+        - name: hello-world
+          image: hashicorp/http-echo
+          args:
+            - "-listen=:8080"
+            - '-text="This is Home Page"'
+          ports:
+            - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: fe-hello-world-service
+  namespace: qa
+  labels:
+    app: fe-hello-world
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080		# Port exposed within the cluster
+      targetPort: 8080	# Port on the pods
+  selector:
+    app: fe-hello-world
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: be-hello-world-service
+  namespace: qa
+  labels:
+    app: be-hello-world
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080		# Port exposed within the cluster
+      targetPort: 8080	# Port on the pods
+  selector:
+    app: be-hello-world
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-world-service
+  namespace: qa
+  labels:
+    app: hello-world
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080		# Port exposed within the cluster
+      targetPort: 8080	# Port on the pods
+  selector:
+    app: hello-world
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-world-ingress
+  namespace: qa
+  annotations:
+    spec.ingressClassName: qa
+spec:
+  rules:
+  - host: demo.example.com
+    http:
+      paths:
+      - path: /fe
+        pathType: Prefix
+        backend:
+          service:
+            name: fe-hello-world-service
+            port:
+              number: 8080
+      - path: /be
+        pathType: Prefix
+        backend:
+          service:
+            name: be-hello-world-service
+            port:
+              number: 8080              
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hello-world-service
+            port:
+              number: 8080

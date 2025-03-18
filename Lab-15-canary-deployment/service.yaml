@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app-service
+  namespace: prd
+spec:
+  type: ClusterIP
+  selector:
+    app: sample-application
+    env: blue
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app-service-canary
+  namespace: prd
+spec:
+  type: ClusterIP
+  selector:
+    app: sample-application
+    env: green
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

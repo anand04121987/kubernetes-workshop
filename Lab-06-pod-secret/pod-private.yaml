@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    name: regcred
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-reg
+  namespace: dev
+spec:
+  containers:
+    - name: private-reg-container
+      image: ubuntuk8s/ubuntu-terraform:latest
+      command: [ "echo", "SUCCESS" ]
+      imagePullPolicy: Always
+  imagePullSecrets:
+    - name: regcred

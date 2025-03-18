@@ -1,0 +1,41 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    name: hello-world
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-world-service
+  namespace: dev
+  labels:
+    app: hello-world
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80		# Port exposed within the cluster
+      targetPort: 80	# Port on the pods
+      nodePort: 30000	# Port accessible externally on each node
+  selector:
+    app: hello-world
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-world-pod
+  namespace: dev
+  labels:
+    app: hello-world
+    environment: dev
+  annotations:
+    description: This pod runs the web server
+spec:
+  containers:
+    - name: hello-world
+      image: ubuntuk8s/helloworld:latest
+      ports:
+        - containerPort: 80
