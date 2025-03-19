@@ -1,3 +1,5 @@
+## commands
+```
  minikube start
  kubectl get all -A
  kubectl apply -f replicaset.yaml
@@ -5,3 +7,4 @@
  minikube service hello-world-service -n dev --url
  kubectl describe rs -n dev
  kubectl delete -f replicaset.yaml
+```

@@ -1,3 +1,5 @@
+# commands
+```
 kubectl api-versions | grep rbac
 kubectl apply -f service-account.yaml
 or
@@ -34,3 +36,4 @@ kubectl config use-context minikube (default)
 kubectl config delete-context service-acc-context
 kubectl config delete-user service-acc
 kubectl config get-contexts
+```

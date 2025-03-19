@@ -1,3 +1,5 @@
+# commands
+```
 kubectl api-versions | grep rbac
 kubectl apply -f service-account.yaml
 TOKEN=$(kubectl -n dev create token cluster-admin-svc-acc)
@@ -22,3 +24,4 @@ kubectl delete -f cluster-role-rolebinding.yaml
 kubectl delete -f service-account.yaml
 kubectl config delete-context cluster-admin-svc-acc-context
 kubectl config delete-user cluster-admin-svc-acc
+```

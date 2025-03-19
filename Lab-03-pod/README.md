@@ -1,3 +1,5 @@
+## commands
+```
  minikube start
  kubectl get all -A
  kubectl apply -f pod.yaml
@@ -5,3 +7,4 @@
  minikube service hello-world-service -n dev --url
  kubectl describe po -n dev
  kubectl delete -f pod.yaml
+```

@@ -1,4 +1,5 @@
-Mount Volume:
+# commands Mount Volume:
+```
 minikube mount /home/kalyan/Downloads:/data &
 or
 ------
@@ -15,3 +16,4 @@ kubectl -n dev exec -it pod/myapp -- ls -l /
 kubectl -n dev exec -it pod/myapp -- /bin/bash
 kubectl delete pod/myapp -n dev
 kubectl delete -f mount.yaml
+```

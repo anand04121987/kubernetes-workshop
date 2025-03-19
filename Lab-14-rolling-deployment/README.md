@@ -1,3 +1,5 @@
+# commands
+```
 kubectl apply -f ns.yaml
 kubectl apply -f rolling.yaml
 kubectl get deployments -n prd -o wide
@@ -10,3 +12,4 @@ kubectl rollout history deployment/nginx-deployment --revision 2 -n prd
 kubectl rollout undo deployment nginx-deployment --to-revision=1 -n prd
 kubectl delete -f rolling.yaml
 kubectl delete -f ns.yaml
+```

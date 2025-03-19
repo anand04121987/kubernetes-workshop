@@ -1,3 +1,5 @@
+# commands
+```
 minikube start
 kubectl get all -A
 echo -n 'admin' | base64
@@ -7,3 +9,4 @@ kubectl get secret -n dev
 kubectl get secret regcred -o yaml -n dev
 kubectl apply -f secret.yaml
 kubectl delete -f secret.yaml
+```
