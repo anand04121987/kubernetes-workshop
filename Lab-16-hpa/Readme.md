@@ -10,10 +10,21 @@ sudo apt-get install k6
 
 ### kubectl commands
 ```
+minikube addons list
+minikube addons enable metrics-server
+minikube dashboard
 kubectl apply -f ingress.yaml
-kubectl apply -f hpa.yaml (averageUtilization: 80/50)
-k6 run k6-test.js
+kubectl apply -f hpa.yaml (averageUtilization: 50/80)
 kubectl get pods -n dev
 kubectl get all -n dev
 kubectl -n dev describe horizontalpodautoscaler.autoscaling/my-app
+
+k6 run k6-test.js
+
+kubectl get pods -n dev
+kubectl get all -n dev
+kubectl -n dev describe horizontalpodautoscaler.autoscaling/my-app
+
+kubectl delete -f hpa.yaml
+kubectl delete -f ingress.yaml
 ```
