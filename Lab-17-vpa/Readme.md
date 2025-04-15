@@ -7,23 +7,33 @@ echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.i
 sudo apt-get update
 sudo apt-get install k6
 ```
+### Install the VPA
+```
+git clone https://github.com/kubernetes/autoscaler.git
+cd autoscaler/vertical-pod-autoscaler/
+./hack/vpa-process-yamls.sh print
+./hack/vpa-up.sh
+kubectl get pods -n kube-system
+kubectl get crd
+```
 
 ### kubectl commands
 ```
 minikube addons list
 minikube addons enable metrics-server
 minikube dashboard &
+kubectl get crd
+
 kubectl apply -f ingress.yaml
-kubectl apply -f hpa.yaml (averageUtilization: 50/80)
-kubectl get pods -n dev
-kubectl get all -n dev
-kubectl -n dev describe horizontalpodautoscaler.autoscaling/my-app
+kubectl apply -f vpa.yaml
+kubectl get vpa -n dev
+kubectl describe vpa -n dev
 
 k6 run k6-test.js
 
-kubectl get pods -n dev
-kubectl get all -n dev
-kubectl -n dev describe horizontalpodautoscaler.autoscaling/my-app
+kubectl get vpa -n dev
+kubectl describe vpa -n dev
+
 
 kubectl delete -f hpa.yaml
 kubectl delete -f ingress.yaml
