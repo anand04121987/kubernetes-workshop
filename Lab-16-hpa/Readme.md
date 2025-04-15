@@ -12,7 +12,7 @@ sudo apt-get install k6
 ```
 minikube addons list
 minikube addons enable metrics-server
-minikube dashboard
+minikube dashboard &
 kubectl apply -f ingress.yaml
 kubectl apply -f hpa.yaml (averageUtilization: 50/80)
 kubectl get pods -n dev
