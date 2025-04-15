@@ -15,6 +15,7 @@ cd autoscaler/vertical-pod-autoscaler/
 ./hack/vpa-up.sh
 kubectl get pods -n kube-system
 kubectl get crd
+./hack/vpa-down.sh (To Uninstall)
 ```
 
 ### kubectl commands
