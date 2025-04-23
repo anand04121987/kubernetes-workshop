@@ -114,14 +114,16 @@ kind: Service
 apiVersion: v1
 metadata:
   name: hello-world-service
+  annotations:
+  networking.gke.io/load-balancer-type: "External"
   namespace: qa
   labels:
     app: hello-world
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 8080		# Port exposed within the cluster
+      port: 80		# Port exposed within the cluster
       targetPort: 8080	# Port on the pods
   selector:
     app: hello-world
