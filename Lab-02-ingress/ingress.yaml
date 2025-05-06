@@ -137,7 +137,7 @@ metadata:
     spec.ingressClassName: qa
 spec:
   rules:
-  - host: demo.example.com
+  - host: k8.ngpdemo.co.uk
     http:
       paths:
       - path: /fe
