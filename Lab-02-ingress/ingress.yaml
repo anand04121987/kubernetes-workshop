@@ -1,16 +1,8 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: qa
-  labels:
-    name: hello-world
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fe-hello-world
-  namespace: qa
 spec:
   selector:
     matchLabels:
@@ -34,7 +26,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: be-hello-world
-  namespace: qa
 spec:
   selector:
     matchLabels:
@@ -58,7 +49,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-world
-  namespace: qa
 spec:
   selector:
     matchLabels:
@@ -82,7 +72,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: fe-hello-world-service
-  namespace: qa
   labels:
     app: fe-hello-world
 spec:
@@ -98,7 +87,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: be-hello-world-service
-  namespace: qa
   labels:
     app: be-hello-world
 spec:
@@ -114,13 +102,10 @@ kind: Service
 apiVersion: v1
 metadata:
   name: hello-world-service
-  annotations:
-  networking.gke.io/load-balancer-type: "External"
-  namespace: qa
   labels:
     app: hello-world
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 80		# Port exposed within the cluster
@@ -132,9 +117,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello-world-ingress
-  namespace: qa
   annotations:
-    spec.ingressClassName: qa
+    kubernetes.io/ingress.class: "gce"
 spec:
   rules:
   - host: k8.ngpdemo.co.uk
@@ -154,7 +138,7 @@ spec:
             name: be-hello-world-service
             port:
               number: 8080              
-      - path: /
+      - path: /*
         pathType: Prefix
         backend:
           service:
