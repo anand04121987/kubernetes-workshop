@@ -117,27 +117,30 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello-world-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.allow-http: "true"
 spec:
   rules:
   - host: k8.ngpdemo.co.uk
     http:
       paths:
       - path: /fe
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: fe-hello-world-service
             port:
               number: 8080
       - path: /be
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: be-hello-world-service
             port:
               number: 8080              
       - path: /*
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: hello-world-service
