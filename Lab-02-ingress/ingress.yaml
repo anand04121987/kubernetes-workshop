@@ -105,7 +105,7 @@ metadata:
   labels:
     app: hello-world
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 8080		# Port exposed within the cluster
@@ -117,9 +117,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello-world-ingress
-  annotations:
-    kubernetes.io/ingress.class: "gce"
-    kubernetes.io/ingress.allow-http: "true"
 spec:
   rules:
   - host: k8.ngpdemo.co.uk
