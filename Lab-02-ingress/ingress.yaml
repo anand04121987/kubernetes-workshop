@@ -108,7 +108,7 @@ spec:
   type: ClusterIP
   ports:
     - protocol: TCP
-      port: 80		# Port exposed within the cluster
+      port: 8080		# Port exposed within the cluster
       targetPort: 8080	# Port on the pods
   selector:
     app: hello-world
