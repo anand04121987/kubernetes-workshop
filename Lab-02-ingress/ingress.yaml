@@ -119,6 +119,7 @@ metadata:
   name: hello-world-ingress
   annotations:
     kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.allow-http: "true"
 spec:
   rules:
   - host: k8.ngpdemo.co.uk
